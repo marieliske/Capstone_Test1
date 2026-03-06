@@ -1,0 +1,2 @@
+[console_scripts]
+todo = simple_todo.cli:main

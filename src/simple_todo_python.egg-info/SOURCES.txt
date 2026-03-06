@@ -1,0 +1,15 @@
+README.md
+pyproject.toml
+src/simple_todo/__init__.py
+src/simple_todo/cli.py
+src/simple_todo/models.py
+src/simple_todo/service.py
+src/simple_todo/storage.py
+src/simple_todo/validators.py
+src/simple_todo_python.egg-info/PKG-INFO
+src/simple_todo_python.egg-info/SOURCES.txt
+src/simple_todo_python.egg-info/dependency_links.txt
+src/simple_todo_python.egg-info/entry_points.txt
+src/simple_todo_python.egg-info/requires.txt
+src/simple_todo_python.egg-info/top_level.txt
+tests/test_service.py
