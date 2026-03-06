@@ -13,7 +13,6 @@ const priorityConfig: Record<Priority, { label: string; className: string }> = {
   high: { label: 'High', className: 'bg-red-100 text-red-700' },
   medium: { label: 'Med', className: 'bg-yellow-100 text-yellow-700' },
   low: { label: 'Low', className: 'bg-green-100 text-green-700' },
-  urgent: { label: 'Urgent', className: 'bg-purple-100 text-purple-700' },
 };
 
 /**
@@ -171,7 +170,6 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo, onToggle, onUpdate, on
               <option value="low">Low</option>
               <option value="medium">Medium</option>
               <option value="high">High</option>
-              <option value="urgent">Urgent</option>
             </select>
           </div>
           <div className="flex items-center gap-1.5">
