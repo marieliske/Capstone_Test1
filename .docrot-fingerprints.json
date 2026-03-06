@@ -6,10 +6,17 @@
           "add_cmd.add_argument",
           "add_cmd.add_argument",
           "add_cmd.add_argument",
+          "add_cmd.add_argument",
           "argparse.ArgumentParser",
+          "complete_cmd.add_argument",
           "del_cmd.add_argument",
           "done_cmd.add_argument",
+          "list_cmd.add_argument",
           "parser.add_subparsers",
+          "rm_cmd.add_argument",
+          "sub.add_parser",
+          "sub.add_parser",
+          "sub.add_parser",
           "sub.add_parser",
           "sub.add_parser",
           "sub.add_parser",
@@ -35,7 +42,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/cli.py",
-      "fingerprint_hash": "389d52730ed62b3018546c06b13624103cc7900e863fb06da9dd5910e4993ba2",
+      "fingerprint_hash": "666dd013c5229c3b0d182d885ef582e22f42d97c24f47efb8f9c59ef5f8c085f",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -61,6 +68,7 @@
           "Priority",
           "TodoService",
           "build_parser",
+          "getattr",
           "parse_args",
           "print",
           "print",
@@ -70,8 +78,8 @@
           "print",
           "print",
           "service.add_todo",
-          "service.complete_todo",
           "service.delete_todo",
+          "service.finish_todo",
           "service.list_todos",
           "service.overdue_todos"
         ]
@@ -81,9 +89,9 @@
         "comparison_ops": [
           "Eq",
           "Eq",
-          "Eq",
-          "Eq",
-          "Eq"
+          "In",
+          "In",
+          "In"
         ]
       },
       "control_flow": {
@@ -100,7 +108,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/cli.py",
-      "fingerprint_hash": "e8dec465db666d932f680f898c979b858c5edefd4eb16889d87d87b3c92ae6ce",
+      "fingerprint_hash": "fb4e3b8717d74aeb4a60524ce7a171a86607a8b6ce756e85386741327978f833",
       "is_public": true,
       "returns": {
         "return_count": 6,
@@ -148,7 +156,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "c4508a145c83f7e2e1463317dbe954eb8ef6b7b055dad8dc7d1e370161ebbbbd",
+      "fingerprint_hash": "55ed722a35d735da4296bf01c8c26cd580588dd5927a4900f07da71e7d3d2a0f",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -162,7 +170,8 @@
       },
       "signature": {
         "defaults": [
-          "Constant(value=None)"
+          "Constant(value=None)",
+          "Constant(value='manual')"
         ],
         "name": "create",
         "params": [
@@ -170,7 +179,8 @@
           "todo_id",
           "title",
           "priority",
-          "due_date"
+          "due_date",
+          "source"
         ],
         "return_annotation": "Constant(value='Todo')"
       },
@@ -183,6 +193,8 @@
           "bool",
           "cls",
           "payload.get",
+          "payload.get",
+          "str",
           "str",
           "str",
           "str",
@@ -209,7 +221,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "d41165193c42f24eb11ad754baf26a1bd0cf735b5632eb3bb1f3be3972752c09",
+      "fingerprint_hash": "72f4a15524d5db1b2eda3e57dc654ea8e8c9f8be7f78dbaf5cfde1763a3e75e2",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -220,6 +232,7 @@
         "db_calls": [],
         "file_calls": [],
         "network_calls": [
+          "payload.get",
           "payload.get"
         ]
       },
@@ -412,7 +425,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/service.py",
-      "fingerprint_hash": "4b42fb3573890443fa7e74cc35d156b3166b3bbf644ffb10b5fb049a0555b86c",
+      "fingerprint_hash": "72f15bcaa6fe4897fae8d533cdaaa0fb8cefba8902a1dec53ca6643563b02aae",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -426,15 +439,17 @@
       },
       "signature": {
         "defaults": [
-          "Attribute(value=Name(id='Priority', ctx=Load()), attr='MEDIUM', ctx=Load())",
-          "Constant(value=None)"
+          "Attribute(value=Name(id='Priority', ctx=Load()), attr='LOW', ctx=Load())",
+          "Constant(value=None)",
+          "Constant(value='manual')"
         ],
         "name": "add_todo",
         "params": [
           "self",
           "title",
           "priority",
-          "due_date"
+          "due_date",
+          "source"
         ],
         "return_annotation": "Name(id='Todo', ctx=Load())"
       },
@@ -443,10 +458,7 @@
     "src/simple_todo/service.py::TodoService.complete_todo": {
       "calls": {
         "call_names": [
-          "datetime.utcnow",
-          "isoformat",
-          "self._find",
-          "self.storage.save"
+          "self.finish_todo"
         ]
       },
       "conditions": {
@@ -467,7 +479,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/service.py",
-      "fingerprint_hash": "5ebcfb0725b1ad11a6b18ee545d7a6c5e30f963d4a768ea305f0b808a61131a5",
+      "fingerprint_hash": "0b68530fb40547b20dc5a932478a2e2c3005493e80620df599e98e70f33ed2ab",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -545,6 +557,61 @@
       },
       "stable_id": "src/simple_todo/service.py::TodoService.delete_todo"
     },
+    "src/simple_todo/service.py::TodoService.finish_todo": {
+      "calls": {
+        "call_names": [
+          "datetime.utcnow",
+          "isoformat",
+          "self._find",
+          "self.storage.save"
+        ]
+      },
+      "conditions": {
+        "boolean_ops": [
+          "Or"
+        ],
+        "comparison_ops": []
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 0,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": []
+      },
+      "file_path": "src/simple_todo/service.py",
+      "fingerprint_hash": "013adcff62ad4bc5077a3d4be22a0538ee5e957deccb5611f5b1d237ceb8e7bc",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [
+          "Constant(value=None)"
+        ],
+        "name": "finish_todo",
+        "params": [
+          "self",
+          "todo_id",
+          "completed_at"
+        ],
+        "return_annotation": "Name(id='Todo', ctx=Load())"
+      },
+      "stable_id": "src/simple_todo/service.py::TodoService.finish_todo"
+    },
     "src/simple_todo/service.py::TodoService.list_todos": {
       "calls": {
         "call_names": [
@@ -553,7 +620,9 @@
       },
       "conditions": {
         "boolean_ops": [],
-        "comparison_ops": []
+        "comparison_ops": [
+          "Is"
+        ]
       },
       "control_flow": {
         "early_return_count": 2,
@@ -569,7 +638,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/service.py",
-      "fingerprint_hash": "6a8e5049e9656822defdbc7776fa902cff446039730cc2f1f183d77a005156ee",
+      "fingerprint_hash": "5853b8a391cf6ce51b10713495c7f33cbc1f303ae0c6d9797d4e613626339626",
       "is_public": true,
       "returns": {
         "return_count": 2,
@@ -583,12 +652,14 @@
       },
       "signature": {
         "defaults": [
+          "Constant(value=None)",
           "Constant(value=True)"
         ],
         "name": "list_todos",
         "params": [
           "self",
-          "show_completed"
+          "show_completed",
+          "include_completed"
         ],
         "return_annotation": "Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())"
       },
@@ -753,6 +824,7 @@
           "ValueError",
           "ValueError",
           "ValueError",
+          "ValueError",
           "isinstance",
           "isinstance",
           "json.loads",
@@ -763,11 +835,9 @@
         ]
       },
       "conditions": {
-        "boolean_ops": [
-          "Or"
-        ],
+        "boolean_ops": [],
         "comparison_ops": [
-          "NotEq"
+          "NotIn"
         ]
       },
       "control_flow": {
@@ -775,7 +845,7 @@
         "elif_count": 0,
         "else_count": 0,
         "for_count": 0,
-        "if_count": 3,
+        "if_count": 4,
         "while_count": 0
       },
       "exceptions": {
@@ -786,11 +856,12 @@
         "raises": [
           "ValueError",
           "ValueError",
+          "ValueError",
           "ValueError"
         ]
       },
       "file_path": "src/simple_todo/storage.py",
-      "fingerprint_hash": "71a39abcb014203ab7667faab7b7fedf57849e1cf082d57aafcd568dea4eac5e",
+      "fingerprint_hash": "82d414233d8da5b387f7616742688460d5b2dcf44ff8965c20a20491cfe6074e",
       "is_public": true,
       "returns": {
         "return_count": 2,
@@ -818,6 +889,8 @@
     "src/simple_todo/storage.py::JsonTodoStorage.save": {
       "calls": {
         "call_names": [
+          "datetime.utcnow",
+          "isoformat",
           "json.dumps",
           "self.file_path.parent.mkdir",
           "self.file_path.write_text",
@@ -842,7 +915,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/storage.py",
-      "fingerprint_hash": "9abc5584d163dca9a2f6f6cfb0c1159e279b3027650a0ca17e5122368e09803d",
+      "fingerprint_hash": "13c9c55a17a5618bf266767af076eb9b596b1978cc1c341676edc46901dbbfeb",
       "is_public": true,
       "returns": {
         "return_count": 0,

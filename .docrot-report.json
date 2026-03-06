@@ -1,0 +1,201 @@
+{
+  "meta": {
+    "repo_path": "G:\\My Drive\\..School\\.Spring 2026\\CS 4485 - CS Project\\Docrot Detector\\repos\\marieliske\\Capstone_Test1",
+    "commit_hash": "f2981f878662e96baf1601aafb3d6a8a3668073b",
+    "timestamp": "2026-03-05T20:10:25.777039",
+    "total_issues": 11,
+    "severity_summary": {
+      "high": 7,
+      "medium": 4,
+      "low": 0
+    }
+  },
+  "issues": [
+    {
+      "reason": "signature_changed",
+      "severity": "high",
+      "code_element": {
+        "name": "src/simple_todo/models.py::Todo.create",
+        "file_path": "src/simple_todo/models.py",
+        "signature": "create(cls, todo_id, title, priority, due_date, source) -> Constant(value='Todo')",
+        "params": [
+          "cls",
+          "todo_id",
+          "title",
+          "priority",
+          "due_date",
+          "source"
+        ],
+        "return_type": "Constant(value='Todo')"
+      },
+      "doc_reference": null,
+      "message": "[signature_changed] 'src/simple_todo/models.py::Todo.create' \u2014 default argument changed, public signature changed (score: 6)",
+      "suggestion": "Update documentation for 'src/simple_todo/models.py::Todo.create' to reflect the new signature."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "high",
+      "code_element": {
+        "name": "src/simple_todo/models.py::Todo.from_dict",
+        "file_path": "src/simple_todo/models.py",
+        "signature": "from_dict(cls, payload) -> Constant(value='Todo')",
+        "params": [
+          "cls",
+          "payload"
+        ],
+        "return_type": "Constant(value='Todo')"
+      },
+      "doc_reference": null,
+      "message": "[docstring_stale] 'src/simple_todo/models.py::Todo.from_dict' \u2014 side-effect behavior changed (score: 6)",
+      "suggestion": "Review documentation for 'src/simple_todo/models.py::Todo.from_dict' \u2014 logic may have changed."
+    },
+    {
+      "reason": "signature_changed",
+      "severity": "high",
+      "code_element": {
+        "name": "src/simple_todo/service.py::TodoService.add_todo",
+        "file_path": "src/simple_todo/service.py",
+        "signature": "add_todo(self, title, priority, due_date, source) -> Name(id='Todo', ctx=Load())",
+        "params": [
+          "self",
+          "title",
+          "priority",
+          "due_date",
+          "source"
+        ],
+        "return_type": "Name(id='Todo', ctx=Load())"
+      },
+      "doc_reference": null,
+      "message": "[signature_changed] 'src/simple_todo/service.py::TodoService.add_todo' \u2014 default argument changed, public signature changed (score: 6)",
+      "suggestion": "Update documentation for 'src/simple_todo/service.py::TodoService.add_todo' to reflect the new signature."
+    },
+    {
+      "reason": "signature_changed",
+      "severity": "high",
+      "code_element": {
+        "name": "src/simple_todo/service.py::TodoService.finish_todo",
+        "file_path": "src/simple_todo/service.py",
+        "signature": "finish_todo(self, todo_id, completed_at) -> Name(id='Todo', ctx=Load())",
+        "params": [
+          "self",
+          "todo_id",
+          "completed_at"
+        ],
+        "return_type": "Name(id='Todo', ctx=Load())"
+      },
+      "doc_reference": null,
+      "message": "[signature_changed] 'src/simple_todo/service.py::TodoService.finish_todo' \u2014 function added (public API) (score: 5)",
+      "suggestion": "Update documentation for 'src/simple_todo/service.py::TodoService.finish_todo' to reflect the new signature."
+    },
+    {
+      "reason": "signature_changed",
+      "severity": "high",
+      "code_element": {
+        "name": "src/simple_todo/service.py::TodoService.list_todos",
+        "file_path": "src/simple_todo/service.py",
+        "signature": "list_todos(self, show_completed, include_completed) -> Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())",
+        "params": [
+          "self",
+          "show_completed",
+          "include_completed"
+        ],
+        "return_type": "Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())"
+      },
+      "doc_reference": null,
+      "message": "[signature_changed] 'src/simple_todo/service.py::TodoService.list_todos' \u2014 default argument changed, branch condition changed, public signature changed (score: 9)",
+      "suggestion": "Update documentation for 'src/simple_todo/service.py::TodoService.list_todos' to reflect the new signature."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "high",
+      "code_element": {
+        "name": "src/simple_todo/storage.py::JsonTodoStorage.load",
+        "file_path": "src/simple_todo/storage.py",
+        "signature": "load(self) -> Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())",
+        "params": [
+          "self"
+        ],
+        "return_type": "Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())"
+      },
+      "doc_reference": null,
+      "message": "[docstring_stale] 'src/simple_todo/storage.py::JsonTodoStorage.load' \u2014 literal/constant changed, branch condition changed, exception behavior changed, core control path added/removed (score: 20)",
+      "suggestion": "Review documentation for 'src/simple_todo/storage.py::JsonTodoStorage.load' \u2014 logic may have changed."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "high",
+      "code_element": {
+        "name": "README.md",
+        "file_path": "README.md",
+        "signature": "",
+        "params": [],
+        "return_type": null
+      },
+      "doc_reference": null,
+      "message": "[doc_file_flagged] 'README.md' \u2014 literal/constant changed, branch condition changed, default argument changed, public signature changed, side-effect behavior changed, function added (public API), exception behavior changed, core control path added/removed (cumulative score: 59)",
+      "suggestion": "Review 'README.md' \u2014 linked code logic has changed."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "medium",
+      "code_element": {
+        "name": "src/simple_todo/cli.py::build_parser",
+        "file_path": "src/simple_todo/cli.py",
+        "signature": "build_parser() -> Attribute(value=Name(id='argparse', ctx=Load()), attr='ArgumentParser', ctx=Load())",
+        "params": [],
+        "return_type": "Attribute(value=Name(id='argparse', ctx=Load()), attr='ArgumentParser', ctx=Load())"
+      },
+      "doc_reference": null,
+      "message": "[docstring_stale] 'src/simple_todo/cli.py::build_parser' \u2014 literal/constant changed (score: 1)",
+      "suggestion": "Review documentation for 'src/simple_todo/cli.py::build_parser' \u2014 logic may have changed."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "medium",
+      "code_element": {
+        "name": "src/simple_todo/cli.py::main",
+        "file_path": "src/simple_todo/cli.py",
+        "signature": "main() -> Constant(value=None)",
+        "params": [],
+        "return_type": "Constant(value=None)"
+      },
+      "doc_reference": null,
+      "message": "[docstring_stale] 'src/simple_todo/cli.py::main' \u2014 literal/constant changed, branch condition changed (score: 4)",
+      "suggestion": "Review documentation for 'src/simple_todo/cli.py::main' \u2014 logic may have changed."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "medium",
+      "code_element": {
+        "name": "src/simple_todo/service.py::TodoService.complete_todo",
+        "file_path": "src/simple_todo/service.py",
+        "signature": "complete_todo(self, todo_id) -> Name(id='Todo', ctx=Load())",
+        "params": [
+          "self",
+          "todo_id"
+        ],
+        "return_type": "Name(id='Todo', ctx=Load())"
+      },
+      "doc_reference": null,
+      "message": "[docstring_stale] 'src/simple_todo/service.py::TodoService.complete_todo' \u2014 literal/constant changed (score: 1)",
+      "suggestion": "Review documentation for 'src/simple_todo/service.py::TodoService.complete_todo' \u2014 logic may have changed."
+    },
+    {
+      "reason": "docstring_stale",
+      "severity": "medium",
+      "code_element": {
+        "name": "src/simple_todo/storage.py::JsonTodoStorage.save",
+        "file_path": "src/simple_todo/storage.py",
+        "signature": "save(self, todos) -> Constant(value=None)",
+        "params": [
+          "self",
+          "todos"
+        ],
+        "return_type": "Constant(value=None)"
+      },
+      "doc_reference": null,
+      "message": "[docstring_stale] 'src/simple_todo/storage.py::JsonTodoStorage.save' \u2014 literal/constant changed (score: 1)",
+      "suggestion": "Review documentation for 'src/simple_todo/storage.py::JsonTodoStorage.save' \u2014 logic may have changed."
+    }
+  ]
+}

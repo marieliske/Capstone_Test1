@@ -1,0 +1,121 @@
+============================================================
+ DOCUMENTATION ROT DETECTOR - SCAN REPORT
+============================================================
+ Repo   : G:\My Drive\..School\.Spring 2026\CS 4485 - CS Project\Docrot Detector\repos\marieliske\Capstone_Test1
+ Commit : f2981f878662e96baf1601aafb3d6a8a3668073b
+ Time   : 2026-03-05T20:10:25.777039
+ Issues : 11 total (High: 7, Medium: 4, Low: 0)
+============================================================
+
+ Issue #1 [HIGH]
+------------------------------------------------------------
+ Reason    : signature_changed
+ Symbol    : src/simple_todo/models.py::Todo.create
+ Code file : src/simple_todo/models.py
+ Signature : create(cls, todo_id, title, priority, due_date, source) -> Constant(value='Todo')
+
+ ! [signature_changed] 'src/simple_todo/models.py::Todo.create' — default argument changed, public signature changed (score: 6)
+ > Suggestion: Update documentation for 'src/simple_todo/models.py::Todo.create' to reflect the new signature.
+
+ Issue #2 [HIGH]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : src/simple_todo/models.py::Todo.from_dict
+ Code file : src/simple_todo/models.py
+ Signature : from_dict(cls, payload) -> Constant(value='Todo')
+
+ ! [docstring_stale] 'src/simple_todo/models.py::Todo.from_dict' — side-effect behavior changed (score: 6)
+ > Suggestion: Review documentation for 'src/simple_todo/models.py::Todo.from_dict' — logic may have changed.
+
+ Issue #3 [HIGH]
+------------------------------------------------------------
+ Reason    : signature_changed
+ Symbol    : src/simple_todo/service.py::TodoService.add_todo
+ Code file : src/simple_todo/service.py
+ Signature : add_todo(self, title, priority, due_date, source) -> Name(id='Todo', ctx=Load())
+
+ ! [signature_changed] 'src/simple_todo/service.py::TodoService.add_todo' — default argument changed, public signature changed (score: 6)
+ > Suggestion: Update documentation for 'src/simple_todo/service.py::TodoService.add_todo' to reflect the new signature.
+
+ Issue #4 [HIGH]
+------------------------------------------------------------
+ Reason    : signature_changed
+ Symbol    : src/simple_todo/service.py::TodoService.finish_todo
+ Code file : src/simple_todo/service.py
+ Signature : finish_todo(self, todo_id, completed_at) -> Name(id='Todo', ctx=Load())
+
+ ! [signature_changed] 'src/simple_todo/service.py::TodoService.finish_todo' — function added (public API) (score: 5)
+ > Suggestion: Update documentation for 'src/simple_todo/service.py::TodoService.finish_todo' to reflect the new signature.
+
+ Issue #5 [HIGH]
+------------------------------------------------------------
+ Reason    : signature_changed
+ Symbol    : src/simple_todo/service.py::TodoService.list_todos
+ Code file : src/simple_todo/service.py
+ Signature : list_todos(self, show_completed, include_completed) -> Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())
+
+ ! [signature_changed] 'src/simple_todo/service.py::TodoService.list_todos' — default argument changed, branch condition changed, public signature changed (score: 9)
+ > Suggestion: Update documentation for 'src/simple_todo/service.py::TodoService.list_todos' to reflect the new signature.
+
+ Issue #6 [HIGH]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : src/simple_todo/storage.py::JsonTodoStorage.load
+ Code file : src/simple_todo/storage.py
+ Signature : load(self) -> Subscript(value=Name(id='list', ctx=Load()), slice=Name(id='Todo', ctx=Load()), ctx=Load())
+
+ ! [docstring_stale] 'src/simple_todo/storage.py::JsonTodoStorage.load' — literal/constant changed, branch condition changed, exception behavior changed, core control path added/removed (score: 20)
+ > Suggestion: Review documentation for 'src/simple_todo/storage.py::JsonTodoStorage.load' — logic may have changed.
+
+ Issue #7 [HIGH]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : README.md
+ Code file : README.md
+
+ ! [doc_file_flagged] 'README.md' — literal/constant changed, branch condition changed, default argument changed, public signature changed, side-effect behavior changed, function added (public API), exception behavior changed, core control path added/removed (cumulative score: 59)
+ > Suggestion: Review 'README.md' — linked code logic has changed.
+
+ Issue #8 [MEDIUM]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : src/simple_todo/cli.py::build_parser
+ Code file : src/simple_todo/cli.py
+ Signature : build_parser() -> Attribute(value=Name(id='argparse', ctx=Load()), attr='ArgumentParser', ctx=Load())
+
+ ! [docstring_stale] 'src/simple_todo/cli.py::build_parser' — literal/constant changed (score: 1)
+ > Suggestion: Review documentation for 'src/simple_todo/cli.py::build_parser' — logic may have changed.
+
+ Issue #9 [MEDIUM]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : src/simple_todo/cli.py::main
+ Code file : src/simple_todo/cli.py
+ Signature : main() -> Constant(value=None)
+
+ ! [docstring_stale] 'src/simple_todo/cli.py::main' — literal/constant changed, branch condition changed (score: 4)
+ > Suggestion: Review documentation for 'src/simple_todo/cli.py::main' — logic may have changed.
+
+ Issue #10 [MEDIUM]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : src/simple_todo/service.py::TodoService.complete_todo
+ Code file : src/simple_todo/service.py
+ Signature : complete_todo(self, todo_id) -> Name(id='Todo', ctx=Load())
+
+ ! [docstring_stale] 'src/simple_todo/service.py::TodoService.complete_todo' — literal/constant changed (score: 1)
+ > Suggestion: Review documentation for 'src/simple_todo/service.py::TodoService.complete_todo' — logic may have changed.
+
+ Issue #11 [MEDIUM]
+------------------------------------------------------------
+ Reason    : docstring_stale
+ Symbol    : src/simple_todo/storage.py::JsonTodoStorage.save
+ Code file : src/simple_todo/storage.py
+ Signature : save(self, todos) -> Constant(value=None)
+
+ ! [docstring_stale] 'src/simple_todo/storage.py::JsonTodoStorage.save' — literal/constant changed (score: 1)
+ > Suggestion: Review documentation for 'src/simple_todo/storage.py::JsonTodoStorage.save' — logic may have changed.
+
+============================================================
+ Scan complete. 11 issue(s) require attention.
+============================================================
