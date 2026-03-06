@@ -2,7 +2,7 @@
   "language": "python",
   "doc_mappings": [
     {
-      "code_glob": "src/*.py",
+      "code_glob": "src/simple_todo/*.py",
       "docs": ["README.md"]
     }
   ],
