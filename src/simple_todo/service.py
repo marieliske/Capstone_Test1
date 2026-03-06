@@ -26,13 +26,7 @@ class TodoService:
         self.storage = storage or JsonTodoStorage()
         self.todos = self.storage.load()
 
-    def add_todo(
-        self,
-        title: str,
-        priority: Priority = Priority.LOW,
-        due_date: str | None = None,
-        source: str = "manual",
-    ) -> Todo:
+    def add_todo(self, title: str, priority: Priority = Priority.MEDIUM, due_date: str | None = None) -> Todo:
         """Create and persist a new todo.
 
         Args:
@@ -46,23 +40,12 @@ class TodoService:
 
         clean_title = normalize_title(title)
         clean_due_date = validate_due_date(due_date)
-        todo = Todo.create(
-            generate_todo_id(),
-            clean_title,
-            priority,
-            clean_due_date,
-            source=source,
-        )
+        todo = Todo.create(generate_todo_id(), clean_title, priority, clean_due_date)
         self.todos.append(todo)
         self.storage.save(self.todos)
         return todo
 
-    def list_todos(
-        self,
-        show_completed: bool | None = None,
-        *,
-        include_completed: bool = True,
-    ) -> list[Todo]:
+    def list_todos(self, show_completed: bool = True) -> list[Todo]:
         """Return todos, optionally filtering out completed items.
 
         Args:
@@ -72,12 +55,11 @@ class TodoService:
             List of todo objects.
         """
 
-        effective_show_completed = include_completed if show_completed is None else show_completed
-        if effective_show_completed:
+        if show_completed:
             return list(self.todos)
         return [todo for todo in self.todos if not todo.completed]
 
-    def finish_todo(self, todo_id: str, completed_at: str | None = None) -> Todo:
+    def complete_todo(self, todo_id: str) -> Todo:
         """Mark a todo as completed and persist.
 
         Args:
@@ -92,14 +74,9 @@ class TodoService:
 
         todo = self._find(todo_id)
         todo.completed = True
-        todo.updated_at = completed_at or datetime.utcnow().isoformat(timespec="seconds")
+        todo.updated_at = datetime.utcnow().isoformat(timespec="seconds")
         self.storage.save(self.todos)
         return todo
-
-    def complete_todo(self, todo_id: str) -> Todo:
-        """Backward-compatible alias for finish_todo."""
-
-        return self.finish_todo(todo_id)
 
     def delete_todo(self, todo_id: str) -> None:
         """Delete a todo by ID and persist.
@@ -145,7 +122,6 @@ class TodoService:
             Priority.LOW: 0,
             Priority.MEDIUM: 1,
             Priority.HIGH: 2,
-            Priority.CRITICAL: 3,
         }
         return sorted(self.todos, key=lambda t: rank[t.priority], reverse=descending)
 

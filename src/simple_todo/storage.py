@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-from datetime import datetime
 from pathlib import Path
 
 from .models import Todo
@@ -14,8 +13,7 @@ class JsonTodoStorage:
 
         The storage format is a top-level JSON object:
         {
-            "version": 2,
-            "saved_at": "...",
+            "version": 1,
             "todos": [ ... ]
         }
     """
@@ -47,11 +45,7 @@ class JsonTodoStorage:
         except json.JSONDecodeError as exc:
             raise ValueError("Storage file is not valid JSON.") from exc
 
-        if not isinstance(payload, dict):
-            raise ValueError("Unsupported storage schema.")
-
-        version = payload.get("version")
-        if version not in (1, 2):
+        if not isinstance(payload, dict) or payload.get("version") != 1:
             raise ValueError("Unsupported storage schema.")
 
         raw_todos = payload.get("todos", [])
@@ -69,8 +63,7 @@ class JsonTodoStorage:
 
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
-            "version": 2,
-            "saved_at": datetime.utcnow().isoformat(timespec="seconds"),
+            "version": 1,
             "todos": [todo.to_dict() for todo in todos],
         }
         self.file_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")

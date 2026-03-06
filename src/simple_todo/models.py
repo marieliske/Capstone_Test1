@@ -20,7 +20,6 @@ class Priority(str, Enum):
     LOW = "low"
     MEDIUM = "medium"
     HIGH = "high"
-    CRITICAL = "critical"
 
 
 @dataclass(slots=True)
@@ -44,17 +43,9 @@ class Todo:
     created_at: str
     updated_at: str
     due_date: str | None = None
-    source: str = "manual"
 
     @classmethod
-    def create(
-        cls,
-        todo_id: str,
-        title: str,
-        priority: Priority,
-        due_date: str | None = None,
-        source: str = "manual",
-    ) -> "Todo":
+    def create(cls, todo_id: str, title: str, priority: Priority, due_date: str | None = None) -> "Todo":
         """Create a new todo object with current timestamps.
 
         Args:
@@ -76,7 +67,6 @@ class Todo:
             created_at=now,
             updated_at=now,
             due_date=due_date,
-            source=source,
         )
 
     def to_dict(self) -> dict[str, Any]:
@@ -94,7 +84,6 @@ class Todo:
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "due_date": self.due_date,
-            "source": self.source,
         }
 
     @classmethod
@@ -116,5 +105,4 @@ class Todo:
             created_at=str(payload["created_at"]),
             updated_at=str(payload["updated_at"]),
             due_date=str(payload["due_date"]) if payload.get("due_date") else None,
-            source=str(payload.get("source", "manual")),
         )
