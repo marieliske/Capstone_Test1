@@ -14,11 +14,12 @@ const filterOptions: { value: FilterMode; label: string }[] = [
   { value: 'all', label: 'All' },
   { value: 'active', label: 'Active' },
   { value: 'completed', label: 'Completed' },
+  { value: 'overdue', label: 'Overdue' },
 ];
 
 const sortOptions: { value: SortMode; label: string }[] = [
   { value: 'created', label: 'Created (newest first)' },
-  { value: 'dueDate', label: 'Due date (soonest first)' },
+  { value: 'deadline', label: 'Deadline (soonest first)' },
   { value: 'priority', label: 'Priority (high → low)' },
 ];
 

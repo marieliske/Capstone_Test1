@@ -11,16 +11,18 @@ import type { Todo } from '../types/todo';
  * is left untouched (i.e. not overwritten until the next save).
  */
 export type TodosStorageEnvelope = {
-  /** Schema version discriminant. Must be `1` for the current format. */
-  version: 1;
+  /** Schema version discriminant. Must be `2` for the current format. */
+  version: 2;
   /** ISO-8601 timestamp of the last successful save. */
   savedAt: string;
+  /** Optional source marker for future migrations and analytics. */
+  source: 'web';
   /** The serialised todo array. */
   todos: Todo[];
 };
 
 /** Key used to read/write the envelope in `localStorage`. */
-const STORAGE_KEY = 'todo-list-app:todos';
+const STORAGE_KEY = 'todo-list-app:v2:todos';
 
 /**
  * Loads todos from `localStorage`.
@@ -41,7 +43,7 @@ export function loadTodos(): Todo[] {
     if (
       typeof envelope !== 'object' ||
       envelope === null ||
-      (envelope as TodosStorageEnvelope).version !== 1
+      (envelope as TodosStorageEnvelope).version !== 2
     ) {
       console.warn('[todosStorage] Unknown envelope version; ignoring stored data.');
       return [];
@@ -67,8 +69,9 @@ export function loadTodos(): Todo[] {
 export function saveTodos(todos: Todo[]): void {
   try {
     const envelope: TodosStorageEnvelope = {
-      version: 1,
+      version: 2,
       savedAt: new Date().toISOString(),
+      source: 'web',
       todos,
     };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(envelope));

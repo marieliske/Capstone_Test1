@@ -1,5 +1,5 @@
 /** Priority levels for a Todo item, ordered from lowest to highest urgency. */
-export type Priority = 'low' | 'medium' | 'high';
+export type Priority = 'low' | 'medium' | 'high' | 'urgent';
 
 /**
  * Core data model representing a single to-do item.
@@ -41,6 +41,8 @@ export interface CreateTodoInput {
   priority?: Priority;
   /** Optional due date in YYYY-MM-DD format. */
   dueDate?: string;
+  /** Optional source marker for analytics/routing. */
+  source?: 'manual' | 'quick';
 }
 
 /**
@@ -50,7 +52,7 @@ export interface CreateTodoInput {
 export type UpdateTodoInput = Partial<Pick<Todo, 'title' | 'completed' | 'priority' | 'dueDate'>>;
 
 /** Available filter values for the list view. */
-export type FilterMode = 'all' | 'active' | 'completed';
+export type FilterMode = 'all' | 'active' | 'completed' | 'overdue';
 
 /**
  * Available sort modes for the list view.
@@ -61,7 +63,7 @@ export type FilterMode = 'all' | 'active' | 'completed';
  *                 ties broken by priority (high → medium → low) then `createdAt` (newest first)
  * - `priority`  → high → medium → low; ties broken by `createdAt` (newest first)
  */
-export type SortMode = 'created' | 'dueDate' | 'priority';
+export type SortMode = 'created' | 'deadline' | 'priority';
 
 /** Aggregate statistics derived from the current todo list. */
 export interface TodoStats {
