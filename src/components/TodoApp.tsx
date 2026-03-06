@@ -25,12 +25,12 @@ export const TodoApp: React.FC = () => {
     setFilter,
     setSearchQuery,
     setSortMode,
-    seedSampleTodos,
+    resetDemoData,
   } = useTodos();
 
-  const handleAdd = (title: string, priority: Priority, dueDate?: string, source: 'manual' | 'quick' = 'manual') => {
+  const handleAdd = (title: string, priority: Priority, dueDate?: string) => {
     try {
-      addTodo({ title, priority, dueDate, source });
+      addTodo({ title, priority, dueDate });
     } catch {
       // validation errors are surfaced by TodoForm internally
     }
@@ -85,11 +85,11 @@ export const TodoApp: React.FC = () => {
         <footer className="mt-4 text-center">
           <button
             type="button"
-            onClick={seedSampleTodos}
+            onClick={resetDemoData}
             className="text-xs text-gray-400 hover:text-gray-600 underline underline-offset-2 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-400 rounded"
-            aria-label="Seed sample todos"
+            aria-label="Reset to demo data"
           >
-            Seed Sample Todos
+            Reset Demo Data
           </button>
         </footer>
       </div>

@@ -15,7 +15,7 @@ import { loadTodos, saveTodos } from '../services/todosStorage';
 // ---------------------------------------------------------------------------
 // Priority ordering map (higher number = higher priority)
 // ---------------------------------------------------------------------------
-const PRIORITY_RANK: Record<Todo['priority'], number> = { low: 0, medium: 1, high: 2, urgent: 3 };
+const PRIORITY_RANK: Record<Todo['priority'], number> = { low: 0, medium: 1, high: 2 };
 
 // ---------------------------------------------------------------------------
 // Demo seed data
@@ -25,7 +25,7 @@ const PRIORITY_RANK: Record<Todo['priority'], number> = { low: 0, medium: 1, hig
 const DEMO_TODOS: Omit<Todo, 'id' | 'createdAt' | 'updatedAt'>[] = [
   { title: 'Set up project repository', completed: true, priority: 'high', dueDate: '2025-01-10' },
   { title: 'Write project README', completed: false, priority: 'high', dueDate: '2025-02-01' },
-  { title: 'Implement authentication', completed: false, priority: 'urgent', dueDate: '2025-03-15' },
+  { title: 'Implement authentication', completed: false, priority: 'high', dueDate: '2025-03-15' },
   { title: 'Design database schema', completed: true, priority: 'medium', dueDate: '2025-01-20' },
   { title: 'Create UI wireframes', completed: false, priority: 'medium', dueDate: '2025-02-28' },
   { title: 'Write unit tests', completed: false, priority: 'medium' },
@@ -82,7 +82,7 @@ function compareTodos(a: Todo, b: Todo, mode: SortMode): number {
       // Newest first → descending createdAt
       return b.createdAt.localeCompare(a.createdAt);
 
-    case 'deadline': {
+    case 'dueDate': {
       const dateDiff = compareDates(a.dueDate, b.dueDate);
       if (dateDiff !== 0) return dateDiff;
       // Tie-break 1: priority (high → low)
@@ -155,7 +155,7 @@ export interface UseTodosReturn {
    * Replaces the current todo list with the built-in demo seed data and
    * persists it to `localStorage`.
    */
-  seedSampleTodos: () => void;
+  resetDemoData: () => void;
 }
 
 // ---------------------------------------------------------------------------
@@ -184,7 +184,7 @@ export function useTodos(): UseTodosReturn {
   const [todos, setTodos] = useState<Todo[]>(() => loadTodos());
   const [filter, setFilter] = useState<FilterMode>('all');
   const [searchQuery, setSearchQuery] = useState('');
-  const [sortMode, setSortMode] = useState<SortMode>('deadline');
+  const [sortMode, setSortMode] = useState<SortMode>('created');
 
   // Helper: update state and persist in one step using functional updater
   const commitTodos = useCallback((updater: (prev: Todo[]) => Todo[]) => {
@@ -251,7 +251,7 @@ export function useTodos(): UseTodosReturn {
     [commitTodos],
   );
 
-  const seedSampleTodos = useCallback(() => {
+  const resetDemoData = useCallback(() => {
     commitTodos(() => buildDemoTodos());
   }, [commitTodos]);
 
@@ -265,7 +265,6 @@ export function useTodos(): UseTodosReturn {
     // Filter
     if (filter === 'active') result = result.filter((t) => !t.completed);
     else if (filter === 'completed') result = result.filter((t) => t.completed);
-    else if (filter === 'overdue') result = result.filter((t) => !!t.dueDate && !t.completed && t.dueDate < new Date().toISOString().slice(0, 10));
 
     // Search
     if (searchQuery.trim()) {
@@ -298,6 +297,6 @@ export function useTodos(): UseTodosReturn {
     setFilter,
     setSearchQuery,
     setSortMode,
-    seedSampleTodos,
+    resetDemoData,
   };
 }
