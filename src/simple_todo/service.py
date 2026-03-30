@@ -93,15 +93,18 @@ class TodoService:
             List of todo objects.
         """
 
+        effective_show_completed = True
         if only_active:
             effective_show_completed = False
-        elif include_completed is not None:
-            effective_show_completed = include_completed
-        elif show_completed is not None:
-            effective_show_completed = show_completed
         else:
-            effective_show_completed = True
+            explicit_flag = (
+                include_completed if include_completed is not None else show_completed
+            )
+            if explicit_flag is not None:
+                effective_show_completed = explicit_flag
+
         if effective_show_completed:
+            # Return a shallow copy to avoid external mutation of internal state.
             return list(self.todos)
         return [todo for todo in self.todos if not todo.completed]
 
