@@ -188,6 +188,7 @@
       "conditions": {
         "boolean_ops": [
           "Or",
+          "Or",
           "Or"
         ],
         "comparison_ops": []
@@ -206,7 +207,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "b268f7b1333df17e4e62a63bf6272d8b047bc2853a5a7d7c245fd62aba2fd80c",
+      "fingerprint_hash": "e7feef1e2d4aa8f0555b49e49072dbf9dbe88f5f39414a8bfd0b95a13f0586eb",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -225,6 +226,7 @@
           "Constant(value=False)",
           "Constant(value=None)",
           "Constant(value=None)",
+          "Constant(value=None)",
           "Constant(value='manual')"
         ],
         "name": "build",
@@ -237,6 +239,7 @@
           "completed",
           "created_at",
           "updated_at",
+          "timestamp",
           "source"
         ],
         "return_annotation": "Constant(value='Todo')"
@@ -350,6 +353,9 @@
           "Priority",
           "bool",
           "cls",
+          "cls",
+          "payload.get",
+          "payload.get",
           "payload.get",
           "payload.get",
           "str",
@@ -366,11 +372,11 @@
         "comparison_ops": []
       },
       "control_flow": {
-        "early_return_count": 1,
+        "early_return_count": 2,
         "elif_count": 0,
         "else_count": 0,
         "for_count": 0,
-        "if_count": 0,
+        "if_count": 1,
         "while_count": 0
       },
       "exceptions": {
@@ -379,10 +385,10 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "139b60fee8f8e59ef2534f9223da464f4aeafce346782c86da0c6b510e426be0",
+      "fingerprint_hash": "14007cff800950270bdd447f1d13cf099267c04a90d5ca534fe95716d4902909",
       "is_public": true,
       "returns": {
-        "return_count": 1,
+        "return_count": 2,
         "returns_none": false
       },
       "side_effects": {
@@ -391,18 +397,22 @@
         "file_calls": [],
         "network_calls": [
           "payload.get",
+          "payload.get",
+          "payload.get",
           "payload.get"
         ]
       },
       "signature": {
         "defaults": [
-          "Constant(value='manual')"
+          "Constant(value='manual')",
+          "Constant(value=True)"
         ],
         "name": "from_mapping",
         "params": [
           "cls",
           "payload",
-          "default_source"
+          "default_source",
+          "coerce_types"
         ],
         "return_annotation": "Constant(value='Todo')"
       },
