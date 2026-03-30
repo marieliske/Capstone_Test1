@@ -57,6 +57,7 @@ class Todo:
         completed: bool = False,
         created_at: str | None = None,
         updated_at: str | None = None,
+        timestamp: str | None = None,
         source: str = "manual",
     ) -> "Todo":
         """Create a new todo object with current timestamps.
@@ -69,13 +70,14 @@ class Todo:
             completed: Initial completion state.
             created_at: Optional creation timestamp.
             updated_at: Optional update timestamp.
+            timestamp: Optional timestamp override used when `created_at` is not set.
             source: Origin tag.
 
         Returns:
             A new `Todo` instance with `completed=False`.
         """
 
-        now = datetime.utcnow().isoformat(timespec="seconds")
+        now = timestamp or datetime.utcnow().isoformat(timespec="seconds")
         created_value = created_at or now
         updated_value = updated_at or created_value
         return cls(
@@ -133,7 +135,13 @@ class Todo:
         return self.as_dict()
 
     @classmethod
-    def from_mapping(cls, payload: dict[str, Any], *, default_source: str = "manual") -> "Todo":
+    def from_mapping(
+        cls,
+        payload: dict[str, Any],
+        *,
+        default_source: str = "manual",
+        coerce_types: bool = True,
+    ) -> "Todo":
         """Build a todo instance from a dictionary payload.
 
         Args:
@@ -142,6 +150,18 @@ class Todo:
         Returns:
             Parsed `Todo` instance.
         """
+
+        if not coerce_types:
+            return cls(
+                id=payload["id"],
+                title=payload["title"],
+                completed=payload["completed"],
+                priority=payload["priority"],
+                created_at=payload["created_at"],
+                updated_at=payload["updated_at"],
+                due_date=payload.get("due_date"),
+                source=payload.get("source", default_source),
+            )
 
         return cls(
             id=str(payload["id"]),
