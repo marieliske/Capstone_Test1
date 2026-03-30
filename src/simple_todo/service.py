@@ -185,6 +185,36 @@ class TodoService:
         }
         return sorted(self.todos, key=lambda t: rank[t.priority], reverse=descending)
 
+    def summary(self) -> dict[str, object]:
+        """Return aggregate counts for the current todo collection.
+
+        Returns:
+            Dictionary with total/completed/active/overdue counts and
+            per-priority totals.
+        """
+
+        total = len(self.todos)
+        completed = sum(1 for todo in self.todos if todo.completed)
+        active = total - completed
+        overdue = len(self.list_overdue_todos())
+
+        by_priority: dict[str, int] = {
+            Priority.LOW.value: 0,
+            Priority.MEDIUM.value: 0,
+            Priority.HIGH.value: 0,
+            Priority.CRITICAL.value: 0,
+        }
+        for todo in self.todos:
+            by_priority[todo.priority.value] += 1
+
+        return {
+            "total": total,
+            "completed": completed,
+            "active": active,
+            "overdue": overdue,
+            "by_priority": by_priority,
+        }
+
     def _get_todo_or_raise(self, todo_id: str) -> Todo:
         """Find todo by ID.
 

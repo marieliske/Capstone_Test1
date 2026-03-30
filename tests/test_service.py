@@ -25,3 +25,27 @@ def test_complete_and_delete_todo(tmp_path):
 
     service.delete_todo(created.id)
     assert service.list_todos() == []
+
+
+def test_summary_counts_and_priority_breakdown(tmp_path):
+    storage = JsonTodoStorage(tmp_path / "todos.json")
+    service = TodoService(storage=storage)
+
+    low = service.add_todo("Low task", priority=Priority.LOW)
+    service.add_todo("Medium task", priority=Priority.MEDIUM)
+    high = service.add_todo("High task", priority=Priority.HIGH)
+    service.add_todo("Critical task", priority=Priority.CRITICAL)
+    service.complete_todo(high.id)
+    service.complete_todo(low.id)
+
+    summary = service.summary()
+    assert summary["total"] == 4
+    assert summary["completed"] == 2
+    assert summary["active"] == 2
+    assert summary["overdue"] == 0
+    assert summary["by_priority"] == {
+        "low": 1,
+        "medium": 1,
+        "high": 1,
+        "critical": 1,
+    }

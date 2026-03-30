@@ -42,6 +42,7 @@ def build_parser() -> argparse.ArgumentParser:
     rm_cmd.add_argument("id", help="Todo ID")
 
     sub.add_parser("overdue", help="List overdue todos")
+    sub.add_parser("summary", help="Show todo summary statistics")
     return parser
 
 
@@ -90,6 +91,25 @@ def main() -> None:
             return
         for todo in overdue:
             print(f"{todo.id} | {todo.title} | due {todo.due_date}")
+        return
+
+    if args.command == "summary":
+        data = service.summary()
+        by_priority = data["by_priority"]
+        print(
+            "Summary: "
+            f"total={data['total']} "
+            f"active={data['active']} "
+            f"completed={data['completed']} "
+            f"overdue={data['overdue']}"
+        )
+        print(
+            "By priority: "
+            f"low={by_priority['low']} "
+            f"medium={by_priority['medium']} "
+            f"high={by_priority['high']} "
+            f"critical={by_priority['critical']}"
+        )
 
 
 if __name__ == "__main__":
