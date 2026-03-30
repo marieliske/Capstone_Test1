@@ -58,7 +58,7 @@ class JsonTodoStorage:
         if not isinstance(raw_todos, list):
             raise ValueError("Storage payload has invalid todos list.")
 
-        return [Todo.from_dict(item) for item in raw_todos]
+        return [Todo.from_mapping(item) for item in raw_todos]
 
     def load(self) -> list[Todo]:
         """Backward-compatible alias for read_todos."""
@@ -77,7 +77,7 @@ class JsonTodoStorage:
         payload = {
             "version": 2,
             "saved_at": datetime.utcnow().isoformat(timespec="seconds"),
-            "todos": [todo.to_dict() for todo in todos],
+            "todos": [todo.as_dict() for todo in todos],
         }
         indent = 2 if pretty else None
         self.file_path.write_text(json.dumps(payload, indent=indent), encoding="utf-8")

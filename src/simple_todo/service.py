@@ -6,7 +6,7 @@ from datetime import date, datetime
 
 from .models import Priority, Todo
 from .storage import JsonTodoStorage
-from .validators import generate_todo_id, normalize_title, validate_due_date
+from .validators import create_todo_id, parse_due_date, sanitize_title
 
 
 class TodoService:
@@ -46,13 +46,13 @@ class TodoService:
             The created todo object.
         """
 
-        clean_title = normalize_title(text)
-        clean_due_date = validate_due_date(due_date)
-        todo = Todo.create(
-            generate_todo_id(),
+        clean_title = sanitize_title(text)
+        clean_due_date = parse_due_date(due_date)
+        todo = Todo.build(
+            create_todo_id(),
             clean_title,
-            priority,
-            clean_due_date,
+            priority=priority,
+            due_date=clean_due_date,
             source=source,
         )
         self.todos.append(todo)
