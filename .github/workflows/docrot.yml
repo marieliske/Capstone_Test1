@@ -13,7 +13,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: SuchiiJain/CS4485_Capstone@github-integration
+      - uses: SuchiiJain/CS4485_Capstone@maries-supabase-testing
         with:
           repo_path: .
           create_issue: "true"
