@@ -130,12 +130,123 @@
     }
   },
   "src/simple_todo/models.py": {
-    "src/simple_todo/models.py::Todo.create": {
+    "src/simple_todo/models.py::Todo.as_dict": {
+      "calls": {
+        "call_names": []
+      },
+      "conditions": {
+        "boolean_ops": [],
+        "comparison_ops": []
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 0,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": []
+      },
+      "file_path": "src/simple_todo/models.py",
+      "fingerprint_hash": "6e32ca9e718e91407448a52400cc6bd3c9b526067ba2173ce0df503fd210cfb3",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [
+          "Constant(value=True)"
+        ],
+        "name": "as_dict",
+        "params": [
+          "self",
+          "enum_as_value"
+        ],
+        "return_annotation": "Subscript(value=Name(id='dict', ctx=Load()), slice=Tuple(elts=[Name(id='str', ctx=Load()), Name(id='Any', ctx=Load())], ctx=Load()), ctx=Load())"
+      },
+      "stable_id": "src/simple_todo/models.py::Todo.as_dict"
+    },
+    "src/simple_todo/models.py::Todo.build": {
       "calls": {
         "call_names": [
           "cls",
           "datetime.utcnow",
           "isoformat"
+        ]
+      },
+      "conditions": {
+        "boolean_ops": [
+          "Or",
+          "Or"
+        ],
+        "comparison_ops": []
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 0,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": []
+      },
+      "file_path": "src/simple_todo/models.py",
+      "fingerprint_hash": "b268f7b1333df17e4e62a63bf6272d8b047bc2853a5a7d7c245fd62aba2fd80c",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [
+          "None",
+          "Constant(value=None)",
+          "Constant(value=False)",
+          "Constant(value=None)",
+          "Constant(value=None)",
+          "Constant(value='manual')"
+        ],
+        "name": "build",
+        "params": [
+          "cls",
+          "todo_id",
+          "text",
+          "priority",
+          "due_date",
+          "completed",
+          "created_at",
+          "updated_at",
+          "source"
+        ],
+        "return_annotation": "Constant(value='Todo')"
+      },
+      "stable_id": "src/simple_todo/models.py::Todo.build"
+    },
+    "src/simple_todo/models.py::Todo.create": {
+      "calls": {
+        "call_names": [
+          "cls.build"
         ]
       },
       "conditions": {
@@ -156,7 +267,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "55ed722a35d735da4296bf01c8c26cd580588dd5927a4900f07da71e7d3d2a0f",
+      "fingerprint_hash": "65d88f300d1253f6fd86433c82bebc6fee182081c4a30c637e25d282cfb441bd",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -187,6 +298,53 @@
       "stable_id": "src/simple_todo/models.py::Todo.create"
     },
     "src/simple_todo/models.py::Todo.from_dict": {
+      "calls": {
+        "call_names": [
+          "cls.from_mapping"
+        ]
+      },
+      "conditions": {
+        "boolean_ops": [],
+        "comparison_ops": []
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 0,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": []
+      },
+      "file_path": "src/simple_todo/models.py",
+      "fingerprint_hash": "d466e0f510549774a5a53059685d6ee5dcbd62ddfc655a21dc10827e72f3c892",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [],
+        "name": "from_dict",
+        "params": [
+          "cls",
+          "payload"
+        ],
+        "return_annotation": "Constant(value='Todo')"
+      },
+      "stable_id": "src/simple_todo/models.py::Todo.from_dict"
+    },
+    "src/simple_todo/models.py::Todo.from_mapping": {
       "calls": {
         "call_names": [
           "Priority",
@@ -221,7 +379,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "72f4a15524d5db1b2eda3e57dc654ea8e8c9f8be7f78dbaf5cfde1763a3e75e2",
+      "fingerprint_hash": "139b60fee8f8e59ef2534f9223da464f4aeafce346782c86da0c6b510e426be0",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -237,19 +395,24 @@
         ]
       },
       "signature": {
-        "defaults": [],
-        "name": "from_dict",
+        "defaults": [
+          "Constant(value='manual')"
+        ],
+        "name": "from_mapping",
         "params": [
           "cls",
-          "payload"
+          "payload",
+          "default_source"
         ],
         "return_annotation": "Constant(value='Todo')"
       },
-      "stable_id": "src/simple_todo/models.py::Todo.from_dict"
+      "stable_id": "src/simple_todo/models.py::Todo.from_mapping"
     },
     "src/simple_todo/models.py::Todo.to_dict": {
       "calls": {
-        "call_names": []
+        "call_names": [
+          "self.as_dict"
+        ]
       },
       "conditions": {
         "boolean_ops": [],
@@ -269,7 +432,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/models.py",
-      "fingerprint_hash": "1338cda370736b02f058317e1255f0442f75d72f4a062a02c3025e6908422999",
+      "fingerprint_hash": "926bcfdc251dfb96a11c94bede89c80315de254b20548b9aba1574b22f0c2365",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -547,12 +710,12 @@
     "src/simple_todo/service.py::TodoService.create_todo": {
       "calls": {
         "call_names": [
-          "Todo.create",
-          "generate_todo_id",
-          "normalize_title",
+          "Todo.build",
+          "create_todo_id",
+          "parse_due_date",
+          "sanitize_title",
           "self.storage.save",
-          "self.todos.append",
-          "validate_due_date"
+          "self.todos.append"
         ]
       },
       "conditions": {
@@ -573,7 +736,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/service.py",
-      "fingerprint_hash": "e9f7e63e83784ef65ee77d8a2e3b5c2a0817542936e59ef3b0305f72ed48569f",
+      "fingerprint_hash": "4007eeed543d4ab423c66b9af2da2d4c68bf053172f087f5ae219a08b40990de",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -1016,7 +1179,7 @@
     "src/simple_todo/storage.py::JsonTodoStorage.read_todos": {
       "calls": {
         "call_names": [
-          "Todo.from_dict",
+          "Todo.from_mapping",
           "ValueError",
           "ValueError",
           "ValueError",
@@ -1057,7 +1220,7 @@
         ]
       },
       "file_path": "src/simple_todo/storage.py",
-      "fingerprint_hash": "373e236c13d5303bb4e6680e97d53f9758266eea7d016dafb2a9f82baa8c0542",
+      "fingerprint_hash": "2c8d935db57d064b4c7dc4aa9749f545d2301cb10987a7ce7f3f7ec102a60fef",
       "is_public": true,
       "returns": {
         "return_count": 2,
@@ -1137,7 +1300,7 @@
           "json.dumps",
           "self.file_path.parent.mkdir",
           "self.file_path.write_text",
-          "todo.to_dict"
+          "todo.as_dict"
         ]
       },
       "conditions": {
@@ -1158,7 +1321,7 @@
         "raises": []
       },
       "file_path": "src/simple_todo/storage.py",
-      "fingerprint_hash": "003d7dd2b51822cd28b899ab5f277d2ca7cffb99e8b781b0934815588f08a40f",
+      "fingerprint_hash": "ec4361eff6759c124f1ca3da24aa1f809d15ad291cf999e51fe680856e64f342",
       "is_public": true,
       "returns": {
         "return_count": 0,
@@ -1188,7 +1351,7 @@
     }
   },
   "src/simple_todo/validators.py": {
-    "src/simple_todo/validators.py::generate_todo_id": {
+    "src/simple_todo/validators.py::create_todo_id": {
       "calls": {
         "call_names": [
           "str",
@@ -1213,7 +1376,51 @@
         "raises": []
       },
       "file_path": "src/simple_todo/validators.py",
-      "fingerprint_hash": "ec53b8361f5cc05ef28d3016af4c7dd0d639f9a8baab03442d769e80aa99e66f",
+      "fingerprint_hash": "7ef9b018927a9d08fd1904dc0a0962eec4b1a4a1b2f9c4561a97aec5ca45a5ec",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [],
+        "name": "create_todo_id",
+        "params": [],
+        "return_annotation": "Name(id='str', ctx=Load())"
+      },
+      "stable_id": "src/simple_todo/validators.py::create_todo_id"
+    },
+    "src/simple_todo/validators.py::generate_todo_id": {
+      "calls": {
+        "call_names": [
+          "create_todo_id"
+        ]
+      },
+      "conditions": {
+        "boolean_ops": [],
+        "comparison_ops": []
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 0,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": []
+      },
+      "file_path": "src/simple_todo/validators.py",
+      "fingerprint_hash": "fec606804fb3fa42395a4acc3c29e15363e100c0fb24e985c3d3d59cecc4c00e",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -1236,36 +1443,28 @@
     "src/simple_todo/validators.py::normalize_title": {
       "calls": {
         "call_names": [
-          "ValueError",
-          "ValueError",
-          "len",
-          "title.strip"
+          "sanitize_title"
         ]
       },
       "conditions": {
         "boolean_ops": [],
-        "comparison_ops": [
-          "Gt"
-        ]
+        "comparison_ops": []
       },
       "control_flow": {
         "early_return_count": 1,
         "elif_count": 0,
         "else_count": 0,
         "for_count": 0,
-        "if_count": 2,
+        "if_count": 0,
         "while_count": 0
       },
       "exceptions": {
         "except_handlers": [],
         "has_bare_except": false,
-        "raises": [
-          "ValueError",
-          "ValueError"
-        ]
+        "raises": []
       },
       "file_path": "src/simple_todo/validators.py",
-      "fingerprint_hash": "4e94b48f1c84b3f86094db938f16872dc811ad82a18ecbe7957922b421a5d312",
+      "fingerprint_hash": "ee100720221d74deb7e3d3dde256c87132c215ad27ff09079101ebe7eabfcf59",
       "is_public": true,
       "returns": {
         "return_count": 1,
@@ -1287,11 +1486,13 @@
       },
       "stable_id": "src/simple_todo/validators.py::normalize_title"
     },
-    "src/simple_todo/validators.py::validate_due_date": {
+    "src/simple_todo/validators.py::parse_due_date": {
       "calls": {
         "call_names": [
           "ValueError",
-          "date.fromisoformat"
+          "date.fromisoformat",
+          "due_date.isoformat",
+          "isinstance"
         ]
       },
       "conditions": {
@@ -1304,11 +1505,11 @@
         ]
       },
       "control_flow": {
-        "early_return_count": 2,
+        "early_return_count": 3,
         "elif_count": 0,
         "else_count": 0,
         "for_count": 0,
-        "if_count": 1,
+        "if_count": 2,
         "while_count": 0
       },
       "exceptions": {
@@ -1321,11 +1522,117 @@
         ]
       },
       "file_path": "src/simple_todo/validators.py",
-      "fingerprint_hash": "30338b78f5da9e0ff589dd6f028f163a2527664028f216756b25e73793597415",
+      "fingerprint_hash": "46adb70fbac8c59717510ba73a42246e98b611b30aca1fb28ce24e49c4be76f1",
       "is_public": true,
       "returns": {
-        "return_count": 2,
+        "return_count": 3,
         "returns_none": true
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [],
+        "name": "parse_due_date",
+        "params": [
+          "due_date"
+        ],
+        "return_annotation": "BinOp(left=Name(id='str', ctx=Load()), op=BitOr(), right=Constant(value=None))"
+      },
+      "stable_id": "src/simple_todo/validators.py::parse_due_date"
+    },
+    "src/simple_todo/validators.py::sanitize_title": {
+      "calls": {
+        "call_names": [
+          "ValueError",
+          "ValueError",
+          "ValueError",
+          "len",
+          "text.strip"
+        ]
+      },
+      "conditions": {
+        "boolean_ops": [],
+        "comparison_ops": [
+          "Gt",
+          "LtE"
+        ]
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 3,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": [
+          "ValueError",
+          "ValueError",
+          "ValueError"
+        ]
+      },
+      "file_path": "src/simple_todo/validators.py",
+      "fingerprint_hash": "43559358ac3393c67445b76e5610753c4f7c3aac51f9270ca5b7c88eb1bb99cf",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
+      },
+      "side_effects": {
+        "auth_calls": [],
+        "db_calls": [],
+        "file_calls": [],
+        "network_calls": []
+      },
+      "signature": {
+        "defaults": [
+          "Constant(value=80)"
+        ],
+        "name": "sanitize_title",
+        "params": [
+          "text",
+          "max_length"
+        ],
+        "return_annotation": "Name(id='str', ctx=Load())"
+      },
+      "stable_id": "src/simple_todo/validators.py::sanitize_title"
+    },
+    "src/simple_todo/validators.py::validate_due_date": {
+      "calls": {
+        "call_names": [
+          "parse_due_date"
+        ]
+      },
+      "conditions": {
+        "boolean_ops": [],
+        "comparison_ops": []
+      },
+      "control_flow": {
+        "early_return_count": 1,
+        "elif_count": 0,
+        "else_count": 0,
+        "for_count": 0,
+        "if_count": 0,
+        "while_count": 0
+      },
+      "exceptions": {
+        "except_handlers": [],
+        "has_bare_except": false,
+        "raises": []
+      },
+      "file_path": "src/simple_todo/validators.py",
+      "fingerprint_hash": "c8413cfceb5f8943286c8c5c5ebbcbf901c9b6739932e90d634354bea54179e3",
+      "is_public": true,
+      "returns": {
+        "return_count": 1,
+        "returns_none": false
       },
       "side_effects": {
         "auth_calls": [],
