@@ -1,21 +1,14 @@
+# .github/workflows/docrot.yml
 name: Docrot Detector
-on:
-  push:
-
+on: [push]
 jobs:
   docrot:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
       issues: write
+      contents: read
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-
-      - uses: SuchiiJain/CS4485_Capstone@maries-supabase-testing
-        with:
-          repo_path: .
-          create_issue: "true"
-          database_url: ${{ secrets.DATABASE_URL }}
-          fail_on_db_error: "true"
+      - uses: SuchiiJain/CS4485_Capstone@portias-supabase-integration
