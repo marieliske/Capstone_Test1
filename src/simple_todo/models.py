@@ -108,7 +108,7 @@ class Todo:
             source=source,
         )
 
-    def as_dict(self, *, enum_as_value: bool = True) -> dict[str, Any]:
+    def as_dict(self, *, enum_as_value: bool = True, include_source: bool = True) -> dict[str, Any]:
         """Convert the todo to a JSON-serializable dictionary.
 
         Returns:
@@ -116,7 +116,7 @@ class Todo:
         """
 
         priority_value: str | Priority = self.priority.value if enum_as_value else self.priority
-        return {
+        payload: dict[str, Any] = {
             "id": self.id,
             "title": self.title,
             "completed": self.completed,
@@ -124,8 +124,10 @@ class Todo:
             "created_at": self.created_at,
             "updated_at": self.updated_at,
             "due_date": self.due_date,
-            "source": self.source,
         }
+        if include_source:
+            payload["source"] = self.source
+        return payload
 
     def to_dict(self) -> dict[str, Any]:
         """Backward-compatible alias for as_dict."""
