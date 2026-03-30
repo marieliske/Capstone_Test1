@@ -52,8 +52,8 @@ def main() -> None:
     service = TodoService()
 
     if args.command == "add":
-        todo = service.add_todo(
-            title=args.title,
+        todo = service.create_todo(
+            args.title,
             priority=Priority(args.priority),
             due_date=args.due_date,
             source=args.source,
@@ -84,7 +84,7 @@ def main() -> None:
         return
 
     if args.command == "overdue":
-        overdue = service.overdue_todos()
+        overdue = service.list_overdue_todos()
         if not overdue:
             print("No overdue todos.")
             return

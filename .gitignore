@@ -31,3 +31,7 @@ lerna-debug.log*
 
 # TypeScript build info
 *.tsbuildinfo
+
+# Docrot files
+docrot-report.json
+docrot-report.txt

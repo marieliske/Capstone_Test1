@@ -29,7 +29,7 @@ class JsonTodoStorage:
 
         self.file_path = Path(file_path)
 
-    def load(self) -> list[Todo]:
+    def read_todos(self) -> list[Todo]:
         """Load todos from disk.
 
         Returns:
@@ -60,11 +60,17 @@ class JsonTodoStorage:
 
         return [Todo.from_dict(item) for item in raw_todos]
 
-    def save(self, todos: list[Todo]) -> None:
+    def load(self) -> list[Todo]:
+        """Backward-compatible alias for read_todos."""
+
+        return self.read_todos()
+
+    def write_todos(self, todos: list[Todo], *, pretty: bool = True) -> None:
         """Persist todos to disk.
 
         Args:
             todos: Current todo collection.
+            pretty: If `True`, use indented JSON output.
         """
 
         self.file_path.parent.mkdir(parents=True, exist_ok=True)
@@ -73,4 +79,10 @@ class JsonTodoStorage:
             "saved_at": datetime.utcnow().isoformat(timespec="seconds"),
             "todos": [todo.to_dict() for todo in todos],
         }
-        self.file_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        indent = 2 if pretty else None
+        self.file_path.write_text(json.dumps(payload, indent=indent), encoding="utf-8")
+
+    def save(self, todos: list[Todo]) -> None:
+        """Backward-compatible alias for write_todos."""
+
+        self.write_todos(todos)
