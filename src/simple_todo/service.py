@@ -93,9 +93,9 @@ class TodoService:
             List of todo objects.
         """
 
-        explicit_flag = include_completed if include_completed is not None else show_completed
+        include_completed_flag = show_completed if include_completed is None else include_completed
 
-        if only_active or explicit_flag is False:
+        if only_active or include_completed_flag is False:
             return [todo for todo in self.todos if not todo.completed]
 
         # Return a shallow copy to avoid external mutation of internal state.
