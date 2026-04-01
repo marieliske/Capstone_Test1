@@ -1,22 +1,14 @@
 # Simple Todo Python Project
 
-This repository now contains a simple Python todo application with:
-
-- a typed data model
-- JSON file persistence
-- a service layer for business logic
-- a small CLI
-- unit tests
-
-The goal is clarity over complexity so each function is easy to understand and document.
+A lightweight todo application with a typed model, JSON persistence, a service layer, CLI commands, and tests.
 
 ## Contents
 
-1. [Setup](#setup)
-2. [Run the CLI](#run-the-cli)
-3. [Project Structure](#project-structure)
-4. [Detailed Function Documentation](#detailed-function-documentation)
-5. [Testing](#testing)
+1. Setup
+2. Run the CLI
+3. Project Structure
+4. Implementation Notes
+5. Testing
 
 ## Setup
 
@@ -56,35 +48,56 @@ pip install -e .[dev]
 
 ## Run the CLI
 
-Add a todo:
+The package installs a `todo` command from `simple_todo.cli:main`.
+
+### Add
 
 ```bash
-todo add "Write architecture notes" --priority high --due-date 2026-03-15
+todo add "Write architecture notes"
+todo add "Ship release" --priority high --due-date 2026-03-15 --source planning
 ```
 
-List todos:
+Options:
+
+- `--priority`: `low`, `medium`, `high`, `critical` (default: `low`)
+- `--due-date`: optional `YYYY-MM-DD`
+- `--source`: optional source tag (default: `manual`)
+
+### List
 
 ```bash
 todo list
+todo list --active-only
+todo ls
 ```
 
-List overdue todos:
+`ls` is an alias for `list`.
+
+### Complete
+
+```bash
+todo done <TODO_ID>
+todo complete <TODO_ID>
+```
+
+`done` and `complete` are equivalent.
+
+### Delete
+
+```bash
+todo delete <TODO_ID>
+todo remove <TODO_ID>
+```
+
+`delete` and `remove` are equivalent.
+
+### Overdue
 
 ```bash
 todo overdue
 ```
 
-Mark done:
-
-```bash
-todo done <TODO_ID>
-```
-
-Delete:
-
-```bash
-todo delete <TODO_ID>
-```
+Shows incomplete todos with `due_date < today`.
 
 ## Project Structure
 
@@ -103,169 +116,75 @@ tests/
   test_service.py
 ```
 
-## Detailed Function Documentation
+## Implementation Notes
 
-### Module: `simple_todo.models`
+### Models (`simple_todo.models`)
 
-#### Enum: `Priority`
+- `Priority`: `LOW`, `MEDIUM`, `HIGH`, `CRITICAL`
+- `Todo` fields:
+  - `id: str`
+  - `title: str`
+  - `completed: bool`
+  - `priority: Priority`
+  - `created_at: str`
+  - `updated_at: str`
+  - `due_date: str | None`
+  - `source: str`
 
-Defines priority levels:
+Core methods:
 
-- `Priority.LOW`
-- `Priority.MEDIUM`
-- `Priority.HIGH`
+- `Todo.build(...)` creates records with timestamp defaults.
+- `Todo.create(...)` is a backward-compatible alias.
+- `Todo.as_dict(...)` / `Todo.to_dict()` serialize values.
+- `Todo.from_mapping(...)` / `Todo.from_dict(...)` deserialize values.
 
-#### Dataclass: `Todo`
+### Validators (`simple_todo.validators`)
 
-Fields:
+- `create_todo_id()` generates UUID4 strings.
+- `generate_todo_id()` is a backward-compatible alias.
+- `sanitize_title(text, max_length=80)` trims and validates title input.
+- `normalize_title(...)` is a backward-compatible alias.
+- `parse_due_date(due_date)` accepts `None`, empty string, `date`, or `YYYY-MM-DD` string.
+- `validate_due_date(...)` is a backward-compatible alias.
 
-- `id: str`
-- `title: str`
-- `completed: bool`
-- `priority: Priority`
-- `created_at: str`
-- `updated_at: str`
-- `due_date: str | None`
+### Storage (`simple_todo.storage`)
 
-##### `Todo.create(todo_id, title, priority, due_date=None) -> Todo`
-
-Factory method that builds a new todo with UTC timestamps and `completed=False`.
-
-##### `Todo.to_dict() -> dict[str, Any]`
-
-Serializes a todo object into a JSON-safe dictionary.
-
-##### `Todo.from_dict(payload) -> Todo`
-
-Deserializes dictionary data into a `Todo` object.
-
----
-
-### Module: `simple_todo.validators`
-
-##### `generate_todo_id() -> str`
-
-Generates a UUID4 string for a new todo ID.
-
-##### `normalize_title(title: str) -> str`
-
-Validates and normalizes title input.
-
-Rules:
-
-- trims whitespace
-- title cannot be empty after trim
-- title max length is 80
-
-Raises `ValueError` if validation fails.
-
-##### `validate_due_date(due_date: str | None) -> str | None`
-
-Validates due date input.
-
-- accepts `None` or empty string
-- otherwise requires `YYYY-MM-DD`
-- raises `ValueError` for invalid format or impossible dates
-
----
-
-### Module: `simple_todo.storage`
-
-#### Class: `JsonTodoStorage`
-
-Handles persistence in a local JSON file.
-
-Storage schema:
+`JsonTodoStorage` reads/writes JSON in this format:
 
 ```json
 {
-  "version": 1,
+  "version": 2,
+  "saved_at": "2026-03-31T12:00:00",
   "todos": []
 }
 ```
 
-##### `JsonTodoStorage.__init__(file_path="todos.json")`
-
-Sets the storage file path.
-
-##### `JsonTodoStorage.load() -> list[Todo]`
-
-Loads todos from disk.
-
 Behavior:
 
-- returns empty list when file does not exist
-- raises `ValueError` for malformed JSON or unsupported schema
+- `read_todos()` / `load()` returns `[]` if the file does not exist.
+- Accepts schema versions `1` and `2` when reading.
+- Raises `ValueError` for malformed JSON or unsupported schema.
+- `write_todos()` / `save()` creates parent directories as needed.
 
-##### `JsonTodoStorage.save(todos: list[Todo]) -> None`
+### Service (`simple_todo.service`)
 
-Writes todo data to disk in schema version 1 format.
+`TodoService` loads todos at initialization and persists changes on mutations.
 
-Creates parent directories automatically if needed.
+Primary methods:
 
----
+- `create_todo(text, priority=Priority.LOW, due_date=None, source="manual")`
+- `list_todos(show_completed=None, include_completed=None, only_active=False)`
+- `finish_todo(todo_id, completed_at=None)`
+- `delete_todo(todo_id)`
+- `list_overdue_todos()`
+- `sort_by_priority(descending=True)`
 
-### Module: `simple_todo.service`
+Backward-compatible aliases:
 
-#### Class: `TodoService`
-
-Main business logic API for app/CLI usage.
-
-##### `TodoService.__init__(storage=None)`
-
-Initializes service with a storage backend and loads existing todos.
-
-##### `add_todo(title, priority=Priority.MEDIUM, due_date=None) -> Todo`
-
-Creates a todo after input validation and immediately persists it.
-
-##### `list_todos(show_completed=True) -> list[Todo]`
-
-Returns all todos or only active todos when `show_completed=False`.
-
-##### `complete_todo(todo_id) -> Todo`
-
-Marks a todo complete, updates timestamp, and persists.
-
-Raises `KeyError` when ID is not found.
-
-##### `delete_todo(todo_id) -> None`
-
-Deletes a todo by ID and persists.
-
-Raises `KeyError` when ID is not found.
-
-##### `overdue_todos() -> list[Todo]`
-
-Returns incomplete todos whose due date is earlier than today.
-
-##### `sort_by_priority(descending=True) -> list[Todo]`
-
-Returns a sorted copy of todos by priority.
-
-##### `_find(todo_id) -> Todo` (internal helper)
-
-Finds one todo by ID or raises `KeyError`.
-
----
-
-### Module: `simple_todo.cli`
-
-##### `build_parser() -> argparse.ArgumentParser`
-
-Creates and configures subcommands:
-
-- `add`
-- `list`
-- `done`
-- `delete`
-- `overdue`
-
-##### `main() -> None`
-
-CLI entrypoint.
-
-Parses args, invokes `TodoService`, and prints user-facing output.
+- `add_todo(...)` -> `create_todo(...)`
+- `complete_todo(todo_id)` -> `finish_todo(todo_id)`
+- `overdue_todos()` -> `list_overdue_todos()`
+- `_find(todo_id)` -> `_get_todo_or_raise(todo_id)`
 
 ## Testing
 
@@ -275,7 +194,7 @@ Run tests:
 pytest
 ```
 
-Current tests cover:
+Current tests in `tests/test_service.py` cover:
 
 - add + list flow
 - complete + delete flow
