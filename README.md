@@ -198,5 +198,3 @@ Current tests in `tests/test_service.py` cover:
 
 - add + list flow
 - complete + delete flow
-
-AHHHHHHHHHHHHHHHHHHH
