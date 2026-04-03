@@ -115,9 +115,17 @@ class TodoService:
         """
 
         todo = self._get_todo_or_raise(todo_id)
-        todo.completed = True
-        todo.updated_at = completed_at or datetime.utcnow().isoformat(timespec="seconds")
-        self.storage.save(self.todos)
+        was_completed = todo.completed
+        if not was_completed:
+            todo.completed = True
+
+        if completed_at is not None:
+            todo.updated_at = completed_at
+        elif not was_completed:
+            todo.updated_at = datetime.utcnow().isoformat(timespec="seconds")
+
+        if (not was_completed) or (completed_at is not None):
+            self.storage.save(self.todos)
         return todo
 
     def complete_todo(self, todo_id: str) -> Todo:
