@@ -143,14 +143,12 @@ class TodoService:
             KeyError: If no todo with that ID exists.
         """
 
-        before = len(self.todos)
-        self.todos = [todo for todo in self.todos if todo.id != todo_id]
-        if len(self.todos) == before:
-            raise KeyError(f"Todo not found: {todo_id}")
+        todo = self._get_todo_or_raise(todo_id)
+        self.todos.remove(todo)
         self.storage.save(self.todos)
 
     def list_overdue_todos(self) -> list[Todo]:
-        """Return active todos with due dates earlier than today.
+        """Return active todos with due dates today or earlier.
 
         Returns:
             List of overdue todos.
@@ -160,7 +158,7 @@ class TodoService:
         return [
             todo
             for todo in self.todos
-            if (not todo.completed) and todo.due_date is not None and todo.due_date < today
+            if (not todo.completed) and todo.due_date is not None and todo.due_date <= today
         ]
 
     def overdue_todos(self) -> list[Todo]:
