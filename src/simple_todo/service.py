@@ -93,17 +93,13 @@ class TodoService:
             List of todo objects.
         """
 
-        if only_active:
-            effective_show_completed = False
-        elif include_completed is not None:
-            effective_show_completed = include_completed
-        elif show_completed is not None:
-            effective_show_completed = show_completed
-        else:
-            effective_show_completed = True
-        if effective_show_completed:
-            return list(self.todos)
-        return [todo for todo in self.todos if not todo.completed]
+        include_completed_flag = show_completed if include_completed is None else include_completed
+
+        if only_active or include_completed_flag is False:
+            return [todo for todo in self.todos if not todo.completed]
+
+        # Return a shallow copy to avoid external mutation of internal state.
+        return list(self.todos)
 
     def finish_todo(self, todo_id: str, completed_at: str | None = None) -> Todo:
         """Mark a todo as completed and persist.
