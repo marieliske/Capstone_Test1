@@ -180,7 +180,15 @@ class TodoService:
             Priority.HIGH: 2,
             Priority.CRITICAL: 3,
         }
-        return sorted(self.todos, key=lambda t: rank[t.priority], reverse=descending)
+        return sorted(
+            self.todos,
+            key=lambda t: (
+                rank[t.priority],
+                t.due_date or "9999-12-31",
+                t.id,
+            ),
+            reverse=descending,
+        )
 
     def _get_todo_or_raise(self, todo_id: str) -> Todo:
         """Find todo by ID.
